@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haiyang Wang | Visual Ethnography Archive</title>
+    
+    <meta property="og:title" content="WHY ARCHIVE | 王海洋的視覺民族志與元策展檔案">
+    <meta property="og:description" content="從展覽機制的元凝視，到廣袤空間的地緣拓撲。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .font-serif-tc { font-family: 'Noto Serif TC', serif; }
+        .font-mono-archive { font-family: 'Space Mono', monospace; }
+        html { scroll-behavior: smooth; }
+        .fade-in-up { animation: fadeInUp 1.5s ease-out forwards; opacity: 0; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .cover-zoom { animation: coverZoom 20s linear infinite alternate; }
+        @keyframes coverZoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+        .float-guan { animation: floatSlow 8s ease-in-out infinite; }
+        .float-zhao { animation: floatSlow 10s ease-in-out infinite reverse; }
+        @keyframes floatSlow { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        img { user-select: none; -webkit-user-drag: none; }
+    </style>
+</head>
+<body class="bg-[#070911] text-zinc-300 antialiased selection:bg-amber-500/30 overflow-x-hidden">
+
+    <nav class="fixed top-0 w-full z-50 mix-blend-difference px-6 md:px-12 py-6 flex justify-between items-center font-mono-archive text-xs tracking-[0.2em] text-zinc-400 pointer-events-none">
+        <a href="#top" class="hover:text-amber-400 transition-colors pointer-events-auto font-bold">WHY_ARCHIVE</a>
+        <div class="hidden md:flex gap-8 pointer-events-auto">
+            <a href="#statement" class="hover:text-amber-400 transition-colors">STATEMENT</a>
+            <a href="#meta-exhibition" class="hover:text-amber-400 transition-colors">META-EXHIBITION</a>
+            <a href="#topology" class="hover:text-amber-400 transition-colors text-amber-500">TOPOLOGY</a>
+            <a href="generator.html" class="hover:text-amber-400 transition-colors">CO-CREATION ↗</a>
+        </div>
+    </nav>
+
+    <!-- 巨型感應門 -->
+    <header id="top" class="relative h-screen flex flex-col items-center justify-center overflow-hidden fade-in-up cursor-pointer group" onclick="document.getElementById('statement').scrollIntoView({behavior: 'smooth'});">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-[#070911]/70 z-10 transition-colors duration-500 group-hover:bg-[#070911]/60"></div>
+            <img src="cover.jpg" alt="Night Sky Background" class="w-full h-full object-cover cover-zoom" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80'" />
+        </div>
+        <div class="relative z-20 w-full max-w-4xl px-8 mx-auto h-[60vh] flex flex-col justify-center pointer-events-none">
+            <div class="text-center mb-12">
+                <p class="font-mono-archive text-amber-600/80 tracking-[0.4em] text-xs md:text-sm uppercase">Visual Ethnography & Curation Archive</p>
+            </div>
+            <div class="relative h-[30vh] md:h-[40vh] w-full mt-4">
+                <div class="absolute top-0 left-[10%] md:left-[20%] float-guan">
+                    <h1 class="text-7xl md:text-[10rem] font-serif-tc text-zinc-100 leading-none drop-shadow-2xl">觀</h1>
+                </div>
+                <div class="absolute bottom-0 right-[10%] md:right-[20%] float-zhao">
+                    <h1 class="text-7xl md:text-[10rem] font-serif-tc text-zinc-100 leading-none drop-shadow-2xl">照</h1>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <p class="font-serif-tc text-zinc-400 tracking-[0.3em] text-sm md:text-lg uppercase">Observation & Illumination</p>
+            </div>
+        </div>
+        <div class="absolute bottom-12 z-20 font-mono-archive text-xs text-amber-600/40 tracking-[0.3em] flex flex-col items-center gap-2 pointer-events-none opacity-60 group-hover:opacity-100 group-hover:text-amber-500 transition-all duration-500">
+            <span class="animate-pulse">SCROLL TO READ STATEMENT</span>
+            <span class="w-[1px] h-8 bg-amber-600/40 mt-2"></span>
+        </div>
+    </header>
+
+    <!-- 藝術家/研究者自述 -->
+    <section id="statement" class="min-h-screen flex flex-col justify-center px-6 md:px-12 max-w-5xl mx-auto py-32 border-b border-zinc-900/50">
+        <h2 class="text-4xl md:text-6xl font-serif-tc text-zinc-100 tracking-wider leading-tight mb-4">王 海洋 <span class="text-2xl md:text-4xl text-zinc-500 ml-4">Haiyang Wang</span></h2>
+        <p class="font-mono-archive text-amber-600/80 tracking-[0.3em] text-sm mb-20 uppercase">Visual Ethnographer / Curator of Life</p>
+        
+        <div class="border-l-[1px] border-amber-600/30 pl-8 md:pl-12 space-y-16">
+            <div class="space-y-12">
+                <div>
+                    <h2 class="font-serif-tc text-xl md:text-2xl text-amber-100/90 mb-4 tracking-wider">我的起點：展覽作為一種被摺疊的記憶</h2>
+                    <p class="text-zinc-400 leading-relaxed text-base md:text-lg max-w-3xl">我最初的構想，是建立一個「關於展覽的展」。透過收集展覽宣傳冊、票根等實體殘留物，去探討宏大敘事如何試圖規訓觀眾，以及肉身在展廳空間中的真實迷失。我稱之為「元策展 (Meta-Exhibition)」。</p>
+                </div>
+                <div>
+                    <h2 class="font-serif-tc text-xl md:text-2xl text-amber-100/90 mb-4 tracking-wider">我的延伸：人生即展場，萬物皆卷宗</h2>
+                    <p class="text-zinc-400 leading-relaxed text-base md:text-lg max-w-3xl">但隨著凝視的深入，我意識到，策展不應僅限於封閉的美術館。<br>整個龐大的社會結構、中原的黃土、嶺南的街巷、甚至天體的軌道，都是自然與歷史共同佈置的「巨型展覽」。因此，這個檔案庫從收集廢紙，生長成了對中國地緣空間、社會學軸線以及非人類中心主義的廣泛視覺測量。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 01: 關於展覽的展 -->
+    <section id="meta-exhibition" class="py-32 px-6 md:px-12 max-w-[1400px] mx-auto border-t border-zinc-900">
+        <div class="font-mono-archive text-xs tracking-[0.3em] text-zinc-500 mb-24 flex items-center gap-4">
+            <span class="w-12 h-[1px] bg-amber-600/50"></span> SECTION 01 // META-EXHIBITION (元策展實踐)
+        </div>
+
+        <!-- 樂齡科技 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-40">
+            <div class="lg:col-span-5 relative group">
+                <div class="relative overflow-hidden rounded-sm border border-zinc-800/50">
+                    <img src="geron.jpg" alt="Gerontechnology" class="w-full h-[50vh] object-cover filter contrast-110" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80'"/>
+                </div>
+                <div class="absolute -left-10 bottom-0 transform -rotate-90 origin-bottom-left font-mono-archive text-[10px] tracking-[0.4em] text-amber-600/50">WHY-META-01</div>
+            </div>
+            <div class="lg:col-span-7 flex flex-col justify-start pt-4">
+                <div class="font-mono-archive text-xs tracking-widest text-zinc-500 uppercase space-y-2 border-l-[1px] border-amber-600/30 pl-6 mb-8">
+                    <div><span class="text-zinc-300">樂齡科技展 / 數據轉譯與社會共情</span></div>
+                </div>
+                <article class="font-serif-tc max-w-2xl space-y-6 text-zinc-400 leading-loose">
+                    <p>在樂齡科技的策展實踐中，最大的挑戰是如何將複雜的實驗室數據，轉譯為公眾能直觀感知的物理空間。這張切片記錄了公眾在面對「衰老」議題時的真實摩擦。</p>
+                </article>
+            </div>
+        </div>
+
+        <!-- 展覽票根 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-40">
+            <div class="lg:col-span-5 relative group">
+                <div class="relative overflow-hidden rounded-sm border border-zinc-800/50">
+                    <img src="ticket.jpg" alt="Exhibition Ticket" class="w-full h-[50vh] object-cover filter contrast-110" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1544627025-a13a01662fb1?auto=format&fit=crop&w=800&q=80'"/>
+                </div>
+                <div class="absolute -left-10 bottom-0 transform -rotate-90 origin-bottom-left font-mono-archive text-[10px] tracking-[0.4em] text-amber-600/50">WHY-META-02</div>
+            </div>
+            <div class="lg:col-span-7 flex flex-col justify-start pt-4">
+                <div class="font-mono-archive text-xs tracking-widest text-zinc-500 uppercase space-y-2 border-l-[1px] border-amber-600/30 pl-6 mb-8">
+                    <div><span class="text-zinc-300">展覽宣傳冊 / 被摺疊的觀看路徑</span></div>
+                </div>
+                <article class="font-serif-tc max-w-2xl space-y-6 text-zinc-400 leading-loose">
+                    <p>收集實體展覽冊，是因為這些廉價的印刷品上烙印著策展人試圖規訓觀眾的「隱形路徑」。揉皺的導覽圖，證明了觀眾身體產生的迷失與抵抗。</p>
+                </article>
+            </div>
+        </div>
+
+        <!-- 活體檔案 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            <div class="lg:col-span-5 relative group">
+                <div class="relative overflow-hidden rounded-sm border border-zinc-800/50">
+                    <img src="lifelong.jpg" alt="Living Archive" class="w-full h-[50vh] object-cover filter contrast-110" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&w=800&q=80'"/>
+                </div>
+                <div class="absolute -left-10 bottom-0 transform -rotate-90 origin-bottom-left font-mono-archive text-[10px] tracking-[0.4em] text-amber-600/50">WHY-META-03</div>
+            </div>
+            <div class="lg:col-span-7 flex flex-col justify-start pt-4">
+                <div class="font-mono-archive text-xs tracking-widest text-zinc-500 uppercase space-y-2 border-l-[1px] border-amber-600/30 pl-6 mb-8">
+                    <div><span class="text-zinc-300">活體檔案 / 永續的在場</span></div>
+                </div>
+                <article class="font-serif-tc max-w-2xl space-y-6 text-zinc-400 leading-loose">
+                    <p>如果策展是將意識形態摺疊進物理空間，那麼肉身的衰老與社會身份的轉換，就是一場漫長的持續性策展。這座檔案庫沒有閉展日期，只要肉身還在感知，名為「活著」的展覽就仍在施工。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02: 空間拓撲 (引導去 atlas.html 的巨大入口) -->
+    <section id="topology" class="py-32 px-6 md:px-12 bg-zinc-900/30 border-t border-zinc-800 border-b relative overflow-hidden">
+        <div class="max-w-[1400px] mx-auto relative z-10">
+            <div class="font-mono-archive text-xs tracking-[0.3em] text-amber-500 mb-12 flex items-center gap-4">
+                <span class="w-12 h-[1px] bg-amber-500"></span> SECTION 02 // SPATIAL TOPOLOGY (空間拓撲)
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-serif-tc text-zinc-100 tracking-widest leading-tight mb-8">流動的地緣檔案與<br>社會學矩陣</h2>
+                    <p class="font-serif-tc text-lg text-zinc-400 leading-relaxed mb-12 max-w-xl">
+                        這是我目前最龐大的田野視覺項目。我建立了 7 條社會學軸線，從河南的黃土根系，到深圳的速度權力，再到宇宙的天體運行。點擊進入矩陣，以濾鏡視角解剖中國地緣。
+                    </p>
+                    <a href="atlas.html" class="inline-flex items-center gap-4 border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-zinc-900 font-mono-archive tracking-widest px-8 py-5 transition-all duration-300">
+                        ENTER THE MATRIX 進入地理矩陣 <span>→</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-4 opacity-50 hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                    <img src="geography/henan/hn_01.jpg" onerror="this.src='https://images.unsplash.com/photo-1555581122-1bc632a41d01?auto=format&fit=crop&w=400&q=80'" class="w-full aspect-square object-cover grayscale">
+                    <img src="geography/shenzhen/sz_01.jpg" onerror="this.src='https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=400&q=80'" class="w-full aspect-square object-cover grayscale mt-8">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 03: 互動與聯絡 -->
+    <footer class="py-32 px-6 md:px-12 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[15vw] font-serif-tc text-zinc-900/30 whitespace-nowrap z-0 pointer-events-none">RESEARCH & CONNECT</div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="font-serif-tc text-3xl md:text-5xl text-zinc-100 tracking-widest mb-8">留 下 你 的 視 覺 碎 片</h2>
+            <p class="font-serif-tc text-lg text-zinc-400 leading-relaxed mb-16">無論是學術探討、策展合作，或是單純想在這個暗房裡洗出一張你的記憶，這扇門永遠開著。</p>
+            
+            <div class="max-w-2xl mx-auto mb-16 text-left border-t border-b border-zinc-800/50 py-8">
+                <h3 class="font-mono-archive text-xs tracking-widest text-amber-600/80 mb-6">/ 參與式項目 CO-CREATION /</h3>
+                <div class="flex flex-col gap-5">
+                    <!-- 暗房入口極度醒目 -->
+                    <a href="generator.html" class="group flex flex-col md:flex-row md:items-center justify-between p-6 bg-zinc-900/60 hover:bg-amber-900/20 transition-colors border border-amber-600/50 hover:border-amber-500 shadow-lg shadow-black/50">
+                        <span class="font-serif-tc text-amber-100/90 text-lg group-hover:text-amber-400 transition-colors flex items-center gap-3">
+                            <span class="w-3 h-3 bg-amber-500 rounded-full animate-pulse"></span>
+                            進入共創暗房 (生成你的專屬視覺卡片)
+                        </span>
+                        <span class="font-mono-archive text-xs text-amber-500 mt-2 md:mt-0 tracking-[0.2em]">ENTER DARKROOM ↗</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex flex-col items-center gap-6">
+                <a href="mailto:daseinpresent@gmail.com" class="inline-block border border-zinc-700 hover:border-amber-500 hover:text-amber-500 font-mono-archive tracking-widest px-8 py-4 transition-all duration-300">DASEINPRESENT@GMAIL.COM</a>
+                
+                <div class="flex flex-wrap justify-center gap-4 mt-4">
+                    <a href="https://xhslink.com/m/6dKUCa5bVx8" target="_blank" class="text-xs font-mono-archive tracking-[0.2em] text-zinc-500 hover:text-amber-400 border border-zinc-800 hover:border-amber-400/50 px-6 py-3 transition-all duration-300">[ 小紅書 / REDNOTE ]</a>
+                    <a href="https://500px.com.cn/de30fe58e44cab6ef803e5d60617d5720" target="_blank" class="text-xs font-mono-archive tracking-[0.2em] text-zinc-500 hover:text-amber-400 border border-zinc-800 hover:border-amber-400/50 px-6 py-3 transition-all duration-300">[ 視覺中國 / 500PX ]</a>
+                    <a href="https://w.dianping.com/cube/evoke/dianping.html?url=dianping%3A%2F%2Fuser%3Fuserid%3D135284454" target="_blank" class="text-xs font-mono-archive tracking-[0.2em] text-zinc-500 hover:text-amber-400 border border-zinc-800 hover:border-amber-400/50 px-6 py-3 transition-all duration-300">[ 大眾點評 / DIANPING ]</a>
+                </div>
+            </div>
+            <p class="font-mono-archive text-[10px] text-zinc-700 tracking-[0.2em] pt-16">© 2026 THE WHY ARCHIVE. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('contextmenu', e => { if(e.target.tagName === 'IMG') e.preventDefault(); });
+        document.addEventListener('dragstart', e => { if(e.target.tagName === 'IMG') e.preventDefault(); });
+    </script>
+</body>
+</html>

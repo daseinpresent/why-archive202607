@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-Creation Darkroom | WHY Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .font-serif-tc { font-family: 'Noto Serif TC', serif; }
+        .font-mono-archive { font-family: 'Space Mono', monospace; }
+        html { scroll-behavior: smooth; }
+        .fade-in-up { animation: fadeInUp 1.5s ease-out forwards; opacity: 0; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* 隱藏原生上傳按鈕 */
+        input[type="file"] { display: none; }
+        
+        /* 自定義下拉選單的滾動條 */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #18181b; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d97706; border-radius: 4px; }
+        
+        /* 靈感選單樣式微調 */
+        select option { background-color: #18181b; color: #d4d4d8; }
+        select optgroup { color: #d97706; font-style: normal; font-weight: normal; }
+    </style>
+</head>
+<body class="bg-[#070911] text-zinc-300 antialiased selection:bg-amber-500/30 min-h-screen flex flex-col">
+
+    <!-- 導航列 -->
+    <nav class="w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center font-mono-archive text-xs tracking-[0.2em] text-zinc-400 border-b border-zinc-900">
+        <a href="atlas.html" class="hover:text-amber-400 transition-colors flex items-center gap-2"><span>← RETURN TO MATRIX</span></a>
+        <div class="hidden md:block text-zinc-600">DARKROOM // CO-CREATION (共創暗房)</div>
+    </nav>
+
+    <main class="flex-grow px-6 md:px-12 py-12 max-w-[1400px] mx-auto w-full fade-in-up">
+        
+        <header class="max-w-3xl mb-12 border-l-2 border-amber-600/50 pl-8">
+            <h1 class="text-3xl md:text-4xl font-serif-tc text-zinc-100 tracking-widest mb-4">共 創 暗 房</h1>
+            <p class="font-mono-archive text-amber-600/80 tracking-[0.3em] text-xs mb-6 uppercase">Visual Ethnography Generator</p>
+            <p class="font-serif-tc text-base leading-relaxed text-zinc-400">
+                展覽不應止於單向的凝視。在這裡，你可以上傳一張屬於你自己的城市碎片，寫下當時的感知。系統會根據照片真實比例，為你生成一張帶有 WHY ARCHIVE 策展印記的專屬視覺檔案卡。
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            
+            <!-- 左側：控制台 -->
+            <div class="lg:col-span-5 space-y-8 bg-zinc-900/30 p-8 border border-zinc-800/50 rounded-sm">
+                
+                <!-- 01. 上傳照片 -->
+                <div>
+                    <label class="block font-mono-archive text-xs tracking-[0.2em] text-zinc-500 mb-3 uppercase">01 // Upload Fragment (上傳碎片)</label>
+                    <label class="flex items-center justify-center w-full h-24 px-4 transition bg-zinc-900/50 border-2 border-zinc-800 border-dashed rounded-sm appearance-none cursor-pointer hover:border-amber-600/50 hover:bg-zinc-800/50 focus:outline-none">
+                        <span class="flex items-center space-x-2">
+                            <span class="font-serif-tc text-zinc-400 text-sm">點擊上傳你的照片 (畫布將自動適配比例)</span>
+                        </span>
+                        <input type="file" id="imageInput" accept="image/*" onchange="loadImage(event)" />
+                    </label>
+                </div>
+
+                <!-- 02. 選擇城市坐標 -->
+                <div class="relative">
+                    <label class="block font-mono-archive text-xs tracking-[0.2em] text-zinc-500 mb-3 uppercase">02 // Coordinates (坐標)</label>
+                    <p class="text-[10px] text-amber-600/60 font-serif-tc mb-2">點擊輸入框即可選擇城市，或直接打字輸入你的自定義地點。</p>
+                    
+                    <div class="relative">
+                        <input type="text" id="cityInput" placeholder="點擊選擇或輸入... (預設: 河南 HENAN)" 
+                               class="w-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-serif-tc rounded-sm focus:ring-amber-500 focus:border-amber-500 block p-3 outline-none cursor-pointer" 
+                               autocomplete="off">
+                        <!-- 自定義下拉視窗 -->
+                        <div id="cityDropdown" class="hidden absolute left-0 right-0 top-full mt-1 bg-[#18181b] border border-zinc-700 rounded-sm shadow-2xl z-50 max-h-60 overflow-y-auto custom-scrollbar">
+                            <!-- 館長生命軌跡 -->
+                            <div class="city-opt p-3 hover:bg-amber-600/30 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-amber-500/80">河南 HENAN</div>
+                            <div class="city-opt p-3 hover:bg-amber-600/30 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-amber-500/80">汕尾 SHANWEI</div>
+                            <div class="city-opt p-3 hover:bg-amber-600/30 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-amber-500/80">廣州 GUANGZHOU</div>
+                            <div class="city-opt p-3 hover:bg-amber-600/30 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-amber-500/80">深圳 SHENZHEN</div>
+                            <div class="city-opt p-3 hover:bg-amber-600/30 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-amber-500/80">香港 HONG KONG</div>
+                            <div class="city-opt p-3 hover:bg-amber-600/30 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-amber-500/80">桂林 GUILIN</div>
+                            <!-- 擴展版圖 -->
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">西寧 XINING</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">拉薩 LHASA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">烏魯木齊 URUMQI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">張掖 ZHANGYE</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">稻城亞丁 DAOCHENG YADING</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">延吉 YANJI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">昆明 KUNMING</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">大理 DALI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">楚雄 CHUXIONG</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">普洱 PU'ER</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">西雙版納 XISHUANGBANNA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">成都 CHENGDU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">重慶 CHONGQING</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">駐馬店 ZHUMADIAN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">太原 TAIYUAN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">大同 DATONG</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">西安 XI'AN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">武漢 WUHAN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">長沙 CHANGSHA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">海口 HAIKOU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">三亞 SANYA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">廈門 XIAMEN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">青島 QINGDAO</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">北京 BEIJING</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">上海 SHANGHAI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">天津 TIANJIN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">杭州 HANGZHOU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">南京 NANJING</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">蘇州 SUZHOU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">哈爾濱 HARBIN</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">澳門 MACAU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">台北 TAIPEI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">加德滿都 KATHMANDU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">馬尼拉 MANILA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">宿霧 CEBU</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">馬六甲 MALACCA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">檳城 PENANG</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">吉隆坡 KUALA LUMPUR</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">巴厘島 BALI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">雅加達 JAKARTA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">東京 TOKYO</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">大阪 OSAKA</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">京都 KYOTO</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">首爾 SEOUL</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">曼谷 BANGKOK</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">清邁 CHIANG MAI</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">布吉島 PHUKET</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">新加坡 SINGAPORE</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">胡志明市 HO CHI MINH CITY</div>
+                            <div class="city-opt p-3 hover:bg-zinc-800 cursor-pointer text-xs font-mono-archive border-b border-zinc-800 text-zinc-300">河內 HANOI</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03. 輸入詩意文本與靈感文庫下拉選單 -->
+                <div>
+                    <div class="flex justify-between items-end mb-3">
+                        <label class="block font-mono-archive text-xs tracking-[0.2em] text-zinc-500 uppercase">03 // Observation (凝視與失語)</label>
+                        
+                        <div class="flex items-center gap-2">
+                            <!-- 專屬換一句按鈕 (選擇分類後才會出現) -->
+                            <button id="shuffleBtn" onclick="shuffleCurrentTemplate()" class="hidden text-[10px] font-mono-archive tracking-widest px-2 py-1 bg-amber-600/10 hover:bg-amber-600/30 text-amber-500 border border-amber-600/50 transition-colors">
+                                ⟳ 換一句
+                            </button>
+                            <!-- 靈感文庫下拉選單 -->
+                            <select id="templateSelect" onchange="applyTemplate(this.value)" class="bg-zinc-900 border border-zinc-700 text-zinc-400 text-[10px] font-mono-archive tracking-widest px-2 py-1 outline-none cursor-pointer hover:border-amber-500 hover:text-amber-500 transition-colors">
+                                <option value="" disabled selected>▾ 靈感文庫 (隨機抽取)</option>
+                                <optgroup label="--- 空間與痕跡 ---">
+                                    <option value="city">城市與光影</option>
+                                    <option value="nature">景觀與自然</option>
+                                    <option value="people">人與感受</option>
+                                </optgroup>
+                                <optgroup label="--- 時間與天象 ---">
+                                    <option value="time">時間的流逝</option>
+                                    <option value="sun">太陽與日落</option>
+                                    <option value="moon">月亮與夜空</option>
+                                </optgroup>
+                                <optgroup label="--- 哲學與遠方 ---">
+                                    <option value="sanmao">三毛 Sanmao</option>
+                                    <option value="haizi">海子 Haizi</option>
+                                    <option value="hesse">黑塞 Hesse</option>
+                                    <option value="camus">加繆 Camus</option>
+                                    <option value="rilke">里爾克 Rilke</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 文本輸入框 (雙擊觸發隨機換句) -->
+                    <textarea id="textInput" rows="4" placeholder="寫下你按下快門那一刻的感受、天氣、或是一段漫無目的的囈語..." 
+                              class="w-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-serif-tc leading-loose rounded-sm focus:ring-amber-500 focus:border-amber-500 block p-3 outline-none resize-none" 
+                              ondblclick="shuffleCurrentTemplate()" oninput="updateCard()">時間在這裡被黃土掩埋，
+又在季風中重新生長。</textarea>
+                    <!-- 提示文字 -->
+                    <p class="text-[10px] text-zinc-600 font-serif-tc mt-2 text-right">💡 提示：選擇文庫後，<span class="text-amber-600/70">雙擊文字框</span> 可快速隨機切換同一系列句子。</p>
+                </div>
+
+                <!-- 04. 署名 -->
+                <div>
+                    <label class="block font-mono-archive text-xs tracking-[0.2em] text-zinc-500 mb-3 uppercase">04 // Observer (記錄者)</label>
+                    <input type="text" id="authorInput" placeholder="點擊輸入名字... (預設: 匿名觀察者)" 
+                           class="w-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-serif-tc rounded-sm focus:ring-amber-500 focus:border-amber-500 block p-3 outline-none cursor-pointer" 
+                           onfocus="this.value=''; updateCard()" oninput="updateCard()" value="">
+                </div>
+
+                <!-- 05. 視覺微調 (Aesthetics) -->
+                <div>
+                    <label class="block font-mono-archive text-xs tracking-[0.2em] text-zinc-500 mb-3 uppercase">05 // Aesthetics (視覺微調)</label>
+                    <div class="space-y-4 bg-zinc-900/50 p-5 border border-zinc-800/50 rounded-sm">
+                        <!-- 濾鏡 (Filters) -->
+                        <div>
+                            <span class="text-[10px] text-zinc-500 font-mono-archive mb-3 block tracking-widest">IMAGE FILTER / 底片濾鏡</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="setFilter('none')" class="text-[10px] px-3 py-1.5 bg-zinc-800 text-zinc-300 hover:text-amber-500 hover:border-amber-500/50 transition-colors border border-zinc-700 rounded-sm">原圖</button>
+                                <button onclick="setFilter('grayscale(100%) contrast(120%)')" class="text-[10px] px-3 py-1.5 bg-zinc-800 text-zinc-300 hover:text-amber-500 hover:border-amber-500/50 transition-colors border border-zinc-700 rounded-sm">黑白暗房</button>
+                                <button onclick="setFilter('sepia(80%) contrast(110%)')" class="text-[10px] px-3 py-1.5 bg-zinc-800 text-zinc-300 hover:text-amber-500 hover:border-amber-500/50 transition-colors border border-zinc-700 rounded-sm">褪色記憶</button>
+                                <button onclick="setFilter('contrast(120%) saturate(110%) brightness(90%)')" class="text-[10px] px-3 py-1.5 bg-zinc-800 text-zinc-300 hover:text-amber-500 hover:border-amber-500/50 transition-colors border border-zinc-700 rounded-sm">電影低光</button>
+                                <button onclick="setFilter('contrast(110%) saturate(130%) hue-rotate(10deg)')" class="text-[10px] px-3 py-1.5 bg-zinc-800 text-zinc-300 hover:text-amber-500 hover:border-amber-500/50 transition-colors border border-zinc-700 rounded-sm">底片膠捲</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 調整桿 (Sliders) -->
+                        <div class="grid grid-cols-2 gap-6 pt-2">
+                            <div>
+                                <span class="text-[10px] text-zinc-500 font-mono-archive mb-2 block tracking-widest flex justify-between"><span>OPACITY</span><span>透明度</span></span>
+                                <input type="range" id="opacitySlider" min="20" max="100" value="100" class="w-full accent-amber-600 cursor-pointer" oninput="updateTextStyle()">
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-zinc-500 font-mono-archive mb-2 block tracking-widest flex justify-between"><span>SCALE</span><span>文字大小</span></span>
+                                <input type="range" id="sizeSlider" min="60" max="120" value="85" class="w-full accent-amber-600 cursor-pointer" oninput="updateTextStyle()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="downloadCard()" class="w-full bg-amber-600/20 hover:bg-amber-600/40 text-amber-500 border border-amber-600/50 font-mono-archive tracking-widest text-xs py-4 transition-all duration-300 mt-8">
+                    [ 生成並保存檔案 / GENERATE ]
+                </button>
+                <p class="text-[10px] text-zinc-600 font-serif-tc text-center">所有生成均在你的本地瀏覽器完成，不會上傳至伺服器，保護隱私。<br>（手機下載若未直接存入相簿，請至「檔案」APP 查看）</p>
+            </div>
+
+            <!-- 右側：視覺卡片預覽區 -->
+            <div class="lg:col-span-7 flex justify-center lg:justify-end">
+                <div id="captureCard" class="relative w-full max-w-[500px] aspect-[4/5] bg-zinc-900 overflow-hidden border border-zinc-800 shadow-2xl shadow-black transition-all duration-500 ease-in-out">
+                    <!-- 預設黑白濾鏡已移除，由腳本控制 -->
+                    <img id="cardImage" src="https://images.unsplash.com/photo-1555581122-1bc632a41d01?auto=format&fit=crop&w=800&q=80" alt="Preview" class="absolute inset-0 w-full h-full object-cover transition-all duration-300" style="filter: grayscale(100%) contrast(120%);" />
+                    <!-- 半透明漸變遮罩 -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 pointer-events-none"></div>
+                    
+                    <!-- 這裡加入一個 textOverlayContainer 方便做縮放與透明度控制 -->
+                    <div id="textOverlayContainer" class="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-20 origin-center transition-all duration-100" style="transform: scale(0.85);">
+                        <div class="flex justify-between items-start">
+                            <div class="font-mono-archive text-[10px] tracking-[0.3em] text-amber-500/90 border-l border-amber-500/50 pl-2">
+                                WHY ARCHIVE <br>
+                                <span class="text-zinc-400">CO-CREATION</span>
+                            </div>
+                            <div id="cardDate" class="font-mono-archive text-[9px] tracking-widest text-zinc-400">2026.XX.XX</div>
+                        </div>
+                        <div class="space-y-4 mt-auto">
+                            <div id="cardCity" class="font-mono-archive text-[10px] tracking-[0.4em] text-zinc-400 uppercase">河南 HENAN</div>
+                            <div id="cardText" class="font-serif-tc text-sm md:text-base text-zinc-100 leading-loose tracking-wide">
+                                時間在這裡被黃土掩埋，<br>又在季風中重新生長。
+                            </div>
+                            <div class="flex items-center gap-4 pt-4 border-t border-zinc-700/50">
+                                <span class="font-mono-archive text-[9px] tracking-widest text-zinc-500">OBSERVER:</span>
+                                <span id="cardAuthor" class="font-serif-tc text-xs text-amber-100/80 tracking-wider">匿名觀察者</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-12 border-t border-zinc-900 text-center mt-20">
+        <p class="font-mono-archive text-[10px] text-zinc-700 tracking-[0.2em]">© 2026 THE WHY ARCHIVE. CO-CREATION SYSTEM.</p>
+    </footer>
+
+    <script>
+        const today = new Date();
+        const dateString = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
+        document.getElementById('cardDate').innerText = dateString;
+
+        // --- 城市自定義下拉選單邏輯 ---
+        const cityInput = document.getElementById('cityInput');
+        const cityDropdown = document.getElementById('cityDropdown');
+        const cityOptions = document.querySelectorAll('.city-opt');
+
+        cityInput.addEventListener('focus', () => {
+            cityInput.value = ''; 
+            updateCard();
+            cityDropdown.classList.remove('hidden');
+            cityOptions.forEach(opt => opt.style.display = 'block'); 
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!cityInput.contains(e.target) && !cityDropdown.contains(e.target)) {
+                cityDropdown.classList.add('hidden');
+            }
+        });
+
+        cityInput.addEventListener('input', () => {
+            const filter = cityInput.value.toUpperCase();
+            cityOptions.forEach(opt => {
+                if (opt.innerText.toUpperCase().includes(filter)) {
+                    opt.style.display = 'block';
+                } else {
+                    opt.style.display = 'none';
+                }
+            });
+            updateCard();
+        });
+
+        cityOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                cityInput.value = opt.innerText;
+                cityDropdown.classList.add('hidden');
+                updateCard();
+            });
+        });
+
+        // --- 靈感文庫盲盒邏輯 (每個分類擴充為 5 句) ---
+        const templates = {
+            city: [
+                "光斑在城市的罅隙中游移，\n每一寸水泥都吸附着路人的叹息。",
+                "霓虹失焦在雨夜的街角，\n肉身在光影交错中短暂停留。",
+                "大厦的阴影切割了黄昏，\n未曾言说的心事被折叠进夜色。",
+                "车轨的流光拉长了城市的脉搏，\n而我在此刻，只是一道安静的轮廓。",
+                "风穿过钢筋水泥的缝隙，\n吹散了喧嚣，却吹不散眼底的凝视。"
+            ],
+            nature: [
+                "千万年的地貌恒定不变，\n而凝视它的目光却瞬息万变。",
+                "山川不曾言语，\n却回答了所有的疑问。",
+                "风穿过树林的声音，\n是自然最古老的呼吸。",
+                "站在这里，\n我感到自己如同尘埃般微小，却又与宇宙相连。",
+                "每一片叶子的凋零，\n都是一次回归大地的承诺。"
+            ],
+            people: [
+                "肉身在狭缝中擦肩而过，\n留下无声的失语与漫长的余温。",
+                "每一个被定格的背影，\n都是一部未写完的流亡史。",
+                "人群如潮水般涌来，\n退去时只剩下地上的倒影。",
+                "我们在彼此的凝视中成为标本，\n却在错身后继续生活。",
+                "记忆中的面孔会逐渐模糊，\n但那刻的引力永远存在。"
+            ],
+            time: [
+                "时间并未流逝，\n被消耗的只是我们自己。",
+                "快门只能切下时间的薄片，\n却无法阻止它的氧化。",
+                "记忆是时间的倒影，\n随波逐流，又无处不在。",
+                "我们总是以为拥有时间，\n其实是时间暂时收留了我们。",
+                "每一秒钟的逝去，\n都是一次无法撤销的曝光。"
+            ],
+            sun: [
+                "太阳照常升起，\n我们在引力的拉扯中又交出了一天的寿命。",
+                "落日把最后的余温，\n慷慨地洒向了这座失语的城。",
+                "光影的交错间，\n看见了一生中所有的黄昏。",
+                "早晨的光线有一种残酷的清晰，\n照亮了所有无处遁形的真实。",
+                "当夕阳燃烧至灰烬，\n黑夜才被允许降临。"
+            ],
+            moon: [
+                "月光是宇宙最温柔的凝视，\n抚平了所有白日的褶皱。",
+                "在没有你的城市里，\n月亮是我唯一的同行者。",
+                "潮汐被引力拉扯，\n而我被记忆牵引。",
+                "夜空不需要被理解，\n它只需要被仰望。",
+                "那一刻的月亮很圆，\n圆得像一个无法兑现的谎言。"
+            ],
+            sanmao: [
+                "每想你一次，天上飘落一粒沙，\n从此形成了撒哈拉。 —— 三毛",
+                "心若没有栖息的地方，\n到哪里都是在流浪。 —— 三毛",
+                "我来不及认真的年轻，\n待明白过来时，只能选择认真的老去。 —— 三毛",
+                "岁月极美，\n在于它必然的流逝。 —— 三毛",
+                "如果有来生，\n要做一棵树，站成永恒。 —— 三毛"
+            ],
+            haizi: [
+                "你来人间一趟，\n你要看看太阳。 —— 海子",
+                "从明天起，做一个幸福的人，\n喂马、劈柴，周游世界。 —— 海子",
+                "我们最终都要远行，\n最终都要与稚嫩的自己告别。 —— 海子",
+                "建一所房子，\n面朝大海，春暖花开。 —— 海子",
+                "今天，我什么也不说，\n让别人去说。 —— 海子"
+            ],
+            hesse: [
+                "这世界有多美，\n就有多让人悲伤。 —— 黑塞",
+                "每个人的生命都是通向自我的征途。 —— 黑塞",
+                "我只不过是试图按照我内心涌动的期盼去生活。 —— 黑塞",
+                "命运不在任何地方，\n它就在我们自己心里。 —— 黑塞",
+                "如果我懂得什么是爱，\n那是因为你。 —— 黑塞"
+            ],
+            camus: [
+                "在隆冬，我终于知道，\n我身上有一个不可战胜的夏天。 —— 加缪",
+                "重要的不是治愈，\n而是带着病痛活下去。 —— 加缪",
+                "对未来真正的慷慨，\n是把一切都献给现在。 —— 加缪",
+                "不要走在我后面，因为我可能不会引路。 —— 加缪",
+                "只要我能拥抱世界，\n那拥抱得笨拙又有什么关系。 —— 加缪"
+            ],
+            rilke: [
+                "你要爱你的寂寞。 —— 里尔克",
+                "这世界是一座边缘模糊的巨大森林。 —— 里尔克",
+                "哪有什么胜利，\n挺住意味着一切。 —— 里尔克",
+                "让一切发生在你身上，美丽和恐怖。 —— 里尔克",
+                "此刻有谁在世上某处走，\n无缘无故在世上走，走向我。 —— 里尔克"
+            ]
+        };
+
+        let currentTemplateCategory = null; 
+
+        function applyTemplate(type) {
+            if (!type || !templates[type]) return;
+            currentTemplateCategory = type; 
+            
+            document.getElementById('shuffleBtn').classList.remove('hidden');
+            
+            executeRandomTemplate();
+            
+            document.getElementById('templateSelect').selectedIndex = 0;
+        }
+
+        function shuffleCurrentTemplate() {
+            if (currentTemplateCategory) {
+                executeRandomTemplate();
+            } else {
+                alert("請先從右側【靈感文庫】選擇一個主題系列喔！");
+            }
+        }
+
+        function executeRandomTemplate() {
+            const list = templates[currentTemplateCategory];
+            const randomIndex = Math.floor(Math.random() * list.length);
+            
+            const textArea = document.getElementById('textInput');
+            textArea.value = list[randomIndex];
+            updateCard();
+            
+            textArea.classList.add('bg-amber-900/40');
+            setTimeout(() => { textArea.classList.remove('bg-amber-900/40'); }, 300);
+        }
+
+        // --- 上傳圖片並【動態適配畫布比例】 ---
+        function loadImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('cardImage');
+                    img.src = e.target.result;
+                    // 上传图片后不再自动清除滤镜，而是保持当前滤镜选择
+                    // img.classList.remove('grayscale'); 
+
+                    const tempImg = new Image();
+                    tempImg.src = e.target.result;
+                    tempImg.onload = function() {
+                        const card = document.getElementById('captureCard');
+                        card.style.aspectRatio = `${this.width} / ${this.height}`;
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateCard() {
+            const cityVal = document.getElementById('cityInput').value.trim();
+            document.getElementById('cardCity').innerText = (cityVal ? cityVal : '河南 HENAN').toUpperCase();
+            
+            const textValue = document.getElementById('textInput').value;
+            document.getElementById('cardText').innerHTML = textValue.replace(/\n/g, '<br>');
+            
+            const authorVal = document.getElementById('authorInput').value.trim();
+            document.getElementById('cardAuthor').innerText = authorVal ? authorVal : '匿名觀察者';
+        }
+
+        // --- 視覺微調引擎 (Aesthetics Engine) ---
+        function setFilter(filterStyle) {
+            document.getElementById('cardImage').style.filter = filterStyle;
+        }
+
+        function updateTextStyle() {
+            const opacity = document.getElementById('opacitySlider').value / 100;
+            const size = document.getElementById('sizeSlider').value / 100;
+            const textContainer = document.getElementById('textOverlayContainer');
+            
+            textContainer.style.opacity = opacity;
+            textContainer.style.transform = `scale(${size})`;
+        }
+
+        function executeCapture(onComplete) {
+            const card = document.getElementById('captureCard');
+            html2canvas(card, {
+                scale: 3, 
+                backgroundColor: "#000000",
+                useCORS: true
+            }).then(canvas => {
+                const authorForFileName = document.getElementById('authorInput').value.trim() || '匿名觀察者';
+                const link = document.createElement('a');
+                link.download = `WHY_Archive_${authorForFileName}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+                if (onComplete) onComplete();
+            });
+        }
+
+        function downloadCard() {
+            window.scrollTo(0, 0); 
+            const imgElement = document.getElementById('cardImage');
+            const currentFilter = imgElement.style.filter;
+            
+            // 如果沒有套用特殊濾鏡，直接生成
+            if (!currentFilter || currentFilter === 'none') {
+                executeCapture();
+                return;
+            }
+
+            // 針對 html2canvas 無法完美抓取 CSS filter 的問題，使用 Canvas 將濾鏡像素化物理重繪
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const tempImg = new Image();
+            tempImg.crossOrigin = "Anonymous";
+            tempImg.src = imgElement.src;
+
+            tempImg.onload = () => {
+                canvas.width = tempImg.width;
+                canvas.height = tempImg.height;
+                ctx.filter = currentFilter;
+                ctx.drawImage(tempImg, 0, 0, canvas.width, canvas.height);
+                
+                // 暫時替換為已渲染濾鏡的 Base64 圖片
+                const originalSrc = imgElement.src;
+                imgElement.src = canvas.toDataURL('image/jpeg', 0.9);
+                imgElement.style.filter = 'none';
+                
+                executeCapture(() => {
+                    // 恢復原狀
+                    imgElement.src = originalSrc;
+                    imgElement.style.filter = currentFilter;
+                });
+            };
+            
+            tempImg.onerror = () => {
+                executeCapture(); // 圖片跨域報錯時降級為直接生成
+            };
+        }
+    </script>
+</body>
+</html>

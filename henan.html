@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henan Dossier | WHY Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .font-serif-tc { font-family: 'Noto Serif TC', serif; }
+        .font-mono-archive { font-family: 'Space Mono', monospace; }
+        html { scroll-behavior: smooth; }
+        .fade-in-up { animation: fadeInUp 1.5s ease-out forwards; opacity: 0; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .masonry-item { break-inside: avoid; margin-bottom: 2rem; }
+        img { user-select: none; -webkit-user-drag: none; }
+    </style>
+</head>
+<body class="bg-[#070911] text-zinc-300 antialiased selection:bg-amber-500/30 overflow-x-hidden min-h-screen flex flex-col">
+
+    <nav class="w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center font-mono-archive text-xs tracking-[0.2em] text-zinc-400 border-b border-zinc-900">
+        <a href="atlas.html" class="hover:text-amber-400 transition-colors flex items-center gap-2"><span>← RETURN TO MATRIX</span></a>
+        <div class="hidden md:block text-zinc-600">DOSSIER // HENAN (LOESS & ORIGINS)</div>
+    </nav>
+
+    <main class="flex-grow px-6 md:px-12 py-20 max-w-[1400px] mx-auto w-full fade-in-up">
+        <header class="max-w-3xl mb-24 border-l-2 border-amber-600/50 pl-8">
+            <h1 class="text-4xl md:text-5xl font-serif-tc text-zinc-100 tracking-widest mb-6">河 南</h1>
+            <p class="font-mono-archive text-amber-600/80 tracking-[0.3em] text-sm mb-12 uppercase">The Loess Plateau & Civilizational Roots</p>
+            <p class="font-serif-tc text-lg leading-relaxed text-zinc-400">
+                中原腹地的厚重與農業文明的底色。我試圖剝離那些宏大的歷史敘事與刻板標籤，去凝視黃土之上具體的日常勞作、沉默的基建，以及肉身在廣袤平原上的韌性。
+            </p>
+        </header>
+
+        <!-- ★ 策展濾鏡欄 (TAXONOMY FILTERS) ★ -->
+        <div class="flex flex-wrap gap-4 mb-16 font-mono-archive text-xs tracking-widest text-zinc-500 border-b border-zinc-800/50 pb-6">
+            <button class="filter-btn text-amber-500 hover:text-amber-400 transition-colors" data-filter="all">[ 總覽 / ALL ]</button>
+            <button class="filter-btn hover:text-amber-400 transition-colors" data-filter="people">[ 肉身 / PEOPLE ]</button>
+            <button class="filter-btn hover:text-amber-400 transition-colors" data-filter="architecture">[ 建築 / ARCHITECTURE ]</button>
+            <button class="filter-btn hover:text-amber-400 transition-colors" data-filter="gastronomy">[ 食物 / GASTRONOMY ]</button>
+            <button class="filter-btn hover:text-amber-400 transition-colors" data-filter="artifacts">[ 物件 / ARTIFACTS ]</button>
+        </div>
+
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8">
+            <div class="masonry-item filter-target architecture relative group">
+                <div class="absolute inset-0 bg-zinc-900/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                <img src="geography/henan/hn_01.jpg" alt="Henan Architecture" draggable="false" class="w-full h-auto object-cover rounded-sm filter contrast-110" onerror="this.src='https://images.unsplash.com/photo-1555581122-1bc632a41d01?auto=format&fit=crop&w=800&q=80'" />
+                <div class="mt-4 font-mono-archive text-[10px] text-zinc-600 tracking-widest flex justify-between"><span>WHY.HN.01</span><span>ARCHITECTURE</span></div>
+            </div>
+            <div class="masonry-item filter-target people relative group">
+                <div class="absolute inset-0 bg-zinc-900/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                <img src="geography/henan/hn_02.jpg" alt="Henan People" draggable="false" class="w-full h-auto object-cover rounded-sm filter contrast-110" onerror="this.src='https://images.unsplash.com/photo-1542380590-70f90e542cc0?auto=format&fit=crop&w=800&q=80'" />
+                <div class="mt-4 font-mono-archive text-[10px] text-zinc-600 tracking-widest flex justify-between"><span>WHY.HN.02</span><span>PEOPLE</span></div>
+            </div>
+            <div class="masonry-item filter-target gastronomy relative group">
+                <div class="absolute inset-0 bg-zinc-900/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                <img src="geography/henan/hn_03.jpg" alt="Henan Gastronomy" draggable="false" class="w-full h-auto object-cover rounded-sm filter contrast-110" onerror="this.src='https://images.unsplash.com/photo-1574316071802-0d684efa7ab5?auto=format&fit=crop&w=800&q=80'" />
+                <div class="mt-4 font-mono-archive text-[10px] text-zinc-600 tracking-widest flex justify-between"><span>WHY.HN.03</span><span>GASTRONOMY</span></div>
+            </div>
+            <div class="masonry-item filter-target artifacts relative group">
+                <div class="absolute inset-0 bg-zinc-900/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                <img src="geography/henan/hn_04.jpg" alt="Henan Artifacts" draggable="false" class="w-full h-auto object-cover rounded-sm filter contrast-110" onerror="this.src='https://images.unsplash.com/photo-1518141541603-518596ac1ff5?auto=format&fit=crop&w=800&q=80'" />
+                <div class="mt-4 font-mono-archive text-[10px] text-zinc-600 tracking-widest flex justify-between"><span>WHY.HN.04</span><span>ARTIFACTS</span></div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-12 border-t border-zinc-900 text-center mt-20"><p class="font-mono-archive text-[10px] text-zinc-700 tracking-[0.2em]">© 2026 THE WHY ARCHIVE. HENAN DOSSIER.</p></footer>
+    
+    <!-- 濾鏡邏輯 -->
+    <script>
+        document.addEventListener('contextmenu', e => { if(e.target.tagName === 'IMG') e.preventDefault(); }); 
+        document.addEventListener('dragstart', e => { if(e.target.tagName === 'IMG') e.preventDefault(); });
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.filter-target');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('text-amber-500'));
+                filterBtns.forEach(b => b.classList.add('text-zinc-500'));
+                btn.classList.remove('text-zinc-500');
+                btn.classList.add('text-amber-500');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                        item.style.display = 'block';
+                        setTimeout(() => { item.style.opacity = '1'; }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => { item.style.display = 'none'; }, 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
